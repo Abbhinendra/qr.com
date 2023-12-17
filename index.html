@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Free And open source Qr Code Generator</title>
     <style>
         *{
             margin: 0;
@@ -11,73 +11,108 @@
             box-sizing: border-box;
             font-family: sans-serif;
         }
-        .container{
-            margin-top: 2%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 8px 8px 8px 8px;
+        body{
+            overflow-x: hidden;
+            background-color: rgb(162, 3, 162);
         }
-        .container .content{
-            background-color: white;
-            padding: 9px 9px 9px 9px;
-            border-radius: 8px;
+        main{
+       width: 80vw;
+       height: 100vh;
+       margin: auto;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+        }
+        .container{
+            padding: 10px 10px 10px 10px;
             max-width: max-content;
             max-height: max-content;
-            transition: all 1.06s ease-in;
+            transition: all 1.6s ease-in;
+            border-radius: 8px;
         }
+        .container .content{
+            padding: 10px 10px 10px 10px;
+            max-width: max-content;
+            max-height: max-content;
+            transition:all 1.06s ease-in;
+            border-radius: 8px;
+            background-color:lavender;
+        }
+
         .container .content input{
             padding: 6px 6px 6px 6px;
-            outline: none;
-            border: 2px solid black;
-            font-family: sans-serif;
             border-radius: 2px;
+            outline: none;
+            border: 1px solid rgb(128, 128, 128);
             font-size: 18px;
             font-weight: 600;
-        }
-        .container .content button{
-            padding: 9px 9px 9px 9px;
-            outline: none;
-            border: 1px solid white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 700;
             font-family: sans-serif;
-            text-align: center;
-            color: white;
-            background-color: black;
         }
-        .container .content .box{
+         .container .content button{
             padding: 6px 6px 6px 6px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            border: 1px solid rgb(142, 139, 139);
+            font-size: 18px;
+            font-weight: 800;
+            font-family: sans-serif;
+            cursor: pointer;
+            color: white;
+            background-color: rgb(134, 24, 238);
+            margin: 0 8px;
+         }
+         .container .content .box{
+            padding: 6px 6px 6px 6px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 1.0s ease-in;
-        }
+         }
+         section{
+            width: 80vw;
+            margin: 2% auto;
+         }
+         section h4{
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: sans-serif;
+            color: white;
+         }
     </style>
 </head>
 <body>
+    <section>
+        <h4 id="gt">Generate QRCode for any social network.</h4>
+    </section>
+    <main>
     <div class="container">
         <div class="content">
-    <input type="text" id="text">
+    <input type="text" id="text" required autocomplete="off" placeholder="Paste url or text here.">
     <div class="box">
     <img src="" id="img" alt="">
     </div>
     <button id="btn" onclick="generate()">click</button> <button onclick="db()">download</button>
         </div>
     </div>
+    </main>
 </body>
 <script>
     function generate(){
-        img.src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+text.value;
-    }
+        if(text.value.trim()==""){
+            alert("Sorry your input box is empty!");
+        }
+        else{
+           img.src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+text.value;
+        }
+        }
    function db(){
    fetch(img.src).then(res=>res.blob()).then(file=>{
     let url=URL.createObjectURL(file);
     let link=document.createElement("a");
     link.href=url;
-    link.download="abhi.png";
+    link.download="QRCode.png";
     link.click();
     document.body.appendChild(link);
     link.remove();
@@ -85,5 +120,16 @@
    })
    }
 
+function random(){
+    let v1=Math.ceil(0+Math.random()*255);
+    let v2=Math.ceil(0+Math.random()*255);
+    let v3=Math.ceil(0+Math.random()*255);
+
+    return `rgb(${v1},${v2},${v3})`;
+}
+setInterval(() => {
+    document.body.style.backgroundColor=random();
+gt.style.color=random();
+}, 6000);
 </script>
 </html>
