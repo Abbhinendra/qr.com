@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .container{
+            margin-top: 2%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 8px 8px 8px;
+        }
+        .container .content{
+            background-color: white;
+            padding: 9px 9px 9px 9px;
+            border-radius: 8px;
+            max-width: max-content;
+            max-height: max-content;
+            transition: all 1.06s ease-in;
+        }
+        .container .content input{
+            padding: 6px 6px 6px 6px;
+            outline: none;
+            border: 2px solid black;
+            font-family: sans-serif;
+            border-radius: 2px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .container .content button{
+            padding: 9px 9px 9px 9px;
+            outline: none;
+            border: 1px solid white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: sans-serif;
+            text-align: center;
+            color: white;
+            background-color: black;
+        }
+        .container .content .box{
+            padding: 6px 6px 6px 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 1.0s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+    <input type="text" id="text">
+    <div class="box">
+    <img src="" id="img" alt="">
+    </div>
+    <button id="btn" onclick="generate()">click</button> <button onclick="db()">download</button>
+        </div>
+    </div>
+</body>
+<script>
+    function generate(){
+        img.src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+text.value;
+    }
+   function db(){
+   fetch(img.src).then(res=>res.blob()).then(file=>{
+    let url=URL.createObjectURL(file);
+    let link=document.createElement("a");
+    link.href=url;
+    link.download="abhi.png";
+    link.click();
+    document.body.appendChild(link);
+    link.remove();
+    document.body.removeChild(link);
+   })
+   }
+
+</script>
+</html>
